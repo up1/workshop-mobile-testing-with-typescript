@@ -96,11 +96,14 @@ class _MiniAppsPageState extends State<MiniAppsPage> {
         backgroundColor: theme.colorScheme.inversePrimary,
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(
-            key: const Key('miniapps_logout_button'),
-            onPressed: _handleLogout,
-            icon: const Icon(Icons.logout),
-            tooltip: 'Logout',
+          Semantics(
+            label: 'miniapps_logout_button',
+            child: IconButton(
+              key: const Key('miniapps_logout_button'),
+              onPressed: _handleLogout,
+              icon: const Icon(Icons.logout),
+              tooltip: 'Logout',
+            ),
           ),
         ],
       ),
@@ -110,9 +113,12 @@ class _MiniAppsPageState extends State<MiniAppsPage> {
 
   Widget _buildBody(ThemeData theme) {
     if (_isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(
-          key: Key('miniapps_loading_indicator'),
+      return Center(
+        child: Semantics(
+          label: 'miniapps_loading_indicator',
+          child: const CircularProgressIndicator(
+            key: Key('miniapps_loading_indicator'),
+          ),
         ),
       );
     }
@@ -132,10 +138,13 @@ class _MiniAppsPageState extends State<MiniAppsPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              ElevatedButton(
-                key: const Key('miniapps_retry_button'),
-                onPressed: _fetchMiniApps,
-                child: const Text('Retry'),
+              Semantics(
+                label: 'miniapps_retry_button',
+                child: ElevatedButton(
+                  key: const Key('miniapps_retry_button'),
+                  onPressed: _fetchMiniApps,
+                  child: const Text('Retry'),
+                ),
               ),
             ],
           ),

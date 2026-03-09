@@ -59,16 +59,19 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(
-                key: const Key('profile_avatar'),
-                radius: 48,
-                backgroundColor: theme.colorScheme.primary,
-                child: Text(
-                  user != null && user.name.isNotEmpty
-                      ? user.name[0].toUpperCase()
-                      : '?',
-                  style: theme.textTheme.headlineLarge?.copyWith(
-                    color: theme.colorScheme.onPrimary,
+              Semantics(
+                label: 'profile_avatar',
+                child: CircleAvatar(
+                  key: const Key('profile_avatar'),
+                  radius: 48,
+                  backgroundColor: theme.colorScheme.primary,
+                  child: Text(
+                    user != null && user.name.isNotEmpty
+                        ? user.name[0].toUpperCase()
+                        : '?',
+                    style: theme.textTheme.headlineLarge?.copyWith(
+                      color: theme.colorScheme.onPrimary,
+                    ),
                   ),
                 ),
               ),
@@ -91,15 +94,18 @@ class ProfilePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-              ElevatedButton.icon(
-                key: const Key('profile_logout_button'),
-                onPressed: () => _handleLogout(context),
-                icon: const Icon(Icons.logout),
-                label: const Text('Logout'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(200, 48),
-                  backgroundColor: theme.colorScheme.error,
-                  foregroundColor: theme.colorScheme.onError,
+              Semantics(
+                label: 'profile_logout_button',
+                child: ElevatedButton.icon(
+                  key: const Key('profile_logout_button'),
+                  onPressed: () => _handleLogout(context),
+                  icon: const Icon(Icons.logout),
+                  label: const Text('Logout'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(200, 48),
+                    backgroundColor: theme.colorScheme.error,
+                    foregroundColor: theme.colorScheme.onError,
+                  ),
                 ),
               ),
             ],

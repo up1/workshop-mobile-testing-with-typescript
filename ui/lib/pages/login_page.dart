@@ -104,44 +104,53 @@ class _LoginPageState extends State<LoginPage> {
                   'Sign In',
                   key: const Key('login_title_text'),
                   semanticsLabel: 'login_title_text',
+                  semanticsIdentifier: 'login_title_text2',
                   style: theme.textTheme.headlineMedium,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
-                TextFormField(
-                  key: const Key('login_username_field'),
-                  controller: _usernameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
-                    prefixIcon: Icon(Icons.person),
-                    border: OutlineInputBorder(),
+                Semantics(
+                  label: 'login_username_field',
+                  identifier: 'login_username_field2',
+                  child: TextFormField(
+                    key: const Key('login_username_field'),
+                    controller: _usernameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Username',
+                      prefixIcon: Icon(Icons.person),
+                      border: OutlineInputBorder(),
+                    ),
+                    textInputAction: TextInputAction.next,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter your username';
+                      }
+                      return null;
+                    },
                   ),
-                  textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your username';
-                    }
-                    return null;
-                  },
                 ),
                 const SizedBox(height: 16),
-                TextFormField(
-                  key: const Key('login_password_field'),
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock),
-                    border: OutlineInputBorder(),
+                Semantics(
+                  label: 'login_password_field',
+                  identifier: 'login_password_field2',
+                  child: TextFormField(
+                    key: const Key('login_password_field'),
+                    controller: _passwordController,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: Icon(Icons.lock),
+                      border: OutlineInputBorder(),
+                    ),
+                    obscureText: true,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (_) => _handleLogin(),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      return null;
+                    },
                   ),
-                  obscureText: true,
-                  textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (_) => _handleLogin(),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  },
                 ),
                 const SizedBox(height: 8),
                 if (_errorMessage != null)
@@ -158,22 +167,28 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 const SizedBox(height: 16),
-                ElevatedButton(
-                  key: const Key('login_submit_button'),
-                  onPressed: _isLoading ? null : _handleLogin,
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(48),
-                  ),
-                  child: _isLoading
-                      ? const SizedBox(
-                          key: Key('login_loading_indicator'),
-                          height: 24,
-                          width: 24,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
+                Semantics(
+                  explicitChildNodes: true,
+                  child: ElevatedButton(
+                    key: const Key('login_submit_button'),
+                    onPressed: _isLoading ? null : _handleLogin,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(48),
+                    ),
+                    child: _isLoading
+                        ? const SizedBox(
+                            key: Key('login_loading_indicator'),
+                            height: 24,
+                            width: 24,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Semantics(
+                            identifier: 'login_submit_button',
+                            child: const Text('Login'),
                           ),
-                        )
-                      : const Text('Login'),
+                  ),
                 ),
               ],
             ),

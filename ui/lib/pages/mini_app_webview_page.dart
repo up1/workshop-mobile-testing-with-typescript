@@ -87,18 +87,24 @@ class _MiniAppWebViewPageState extends State<MiniAppWebViewPage> {
           semanticsLabel: 'webview_app_bar_title',
         ),
         backgroundColor: theme.colorScheme.inversePrimary,
-        leading: IconButton(
-          key: const Key('webview_back_button'),
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/miniapps'),
-          tooltip: 'Back to MiniApps',
+        leading: Semantics(
+          label: 'webview_back_button',
+          child: IconButton(
+            key: const Key('webview_back_button'),
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => context.go('/miniapps'),
+            tooltip: 'Back to MiniApps',
+          ),
         ),
         actions: [
-          IconButton(
-            key: const Key('webview_logout_button'),
-            onPressed: _handleLogout,
-            icon: const Icon(Icons.logout),
-            tooltip: 'Logout',
+          Semantics(
+            label: 'webview_logout_button',
+            child: IconButton(
+              key: const Key('webview_logout_button'),
+              onPressed: _handleLogout,
+              icon: const Icon(Icons.logout),
+              tooltip: 'Logout',
+            ),
           ),
         ],
       ),
@@ -109,9 +115,12 @@ class _MiniAppWebViewPageState extends State<MiniAppWebViewPage> {
             controller: _controller,
           ),
           if (_isLoading)
-            const Center(
-              child: CircularProgressIndicator(
-                key: Key('webview_loading_indicator'),
+            Center(
+              child: Semantics(
+                label: 'webview_loading_indicator',
+                child: const CircularProgressIndicator(
+                  key: Key('webview_loading_indicator'),
+                ),
               ),
             ),
         ],

@@ -42,23 +42,29 @@ class HomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-              ElevatedButton.icon(
-                key: const Key('home_login_button'),
-                onPressed: () => context.go('/login'),
-                icon: const Icon(Icons.login),
-                label: const Text('Go to Login'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(200, 48),
+              Semantics(
+                label: 'home_login_button',
+                child: ElevatedButton.icon(
+                  key: const Key('home_login_button'),
+                  onPressed: () => context.go('/login'),
+                  icon: const Icon(Icons.login),
+                  label: const Text('Go to Login'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(200, 48),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
-              ElevatedButton.icon(
-                key: const Key('home_miniapps_button'),
-                onPressed: () => context.go('/login/miniapps'),
-                icon: const Icon(Icons.apps),
-                label: const Text('Go to MiniApps'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(200, 48),
+              Semantics(
+                label: 'home_miniapps_button',
+                child: ElevatedButton.icon(
+                  key: const Key('home_miniapps_button'),
+                  onPressed: () => context.go('/login/miniapps'),
+                  icon: const Icon(Icons.apps),
+                  label: const Text('Go to MiniApps'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(200, 48),
+                  ),
                 ),
               ),
             ],
