@@ -33,3 +33,9 @@ $npm install typescript ts-node --save-dev
 ```
 $npm run wdio
 ```
+
+## Step 3 :: View Allure report
+```
+$allure generate
+$allure serve
+```
