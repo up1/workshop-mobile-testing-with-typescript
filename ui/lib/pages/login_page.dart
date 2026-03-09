@@ -110,7 +110,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 32),
                 Semantics(
-                  label: 'login_username_field',
                   identifier: 'login_username_field2',
                   child: TextFormField(
                     key: const Key('login_username_field'),
@@ -131,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 16),
                 Semantics(
-                  label: 'login_password_field',
                   identifier: 'login_password_field2',
                   child: TextFormField(
                     key: const Key('login_password_field'),
@@ -168,7 +166,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 const SizedBox(height: 16),
                 Semantics(
-                  explicitChildNodes: true,
+                  excludeSemantics: true,
+                  identifier: 'login_submit_button2',
+                  label: 'login_submit_button',
                   child: ElevatedButton(
                     key: const Key('login_submit_button'),
                     onPressed: _isLoading ? null : _handleLogin,
@@ -184,10 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                               strokeWidth: 2,
                             ),
                           )
-                        : Semantics(
-                            identifier: 'login_submit_button',
-                            child: const Text('Login'),
-                          ),
+                        : const Text('Login'),
                   ),
                 ),
               ],
