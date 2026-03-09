@@ -37,6 +37,7 @@ dependencies:
   http: ^1.6.0
   go_router: ^17.1.0
   webview_flutter: ^4.13.1
+  allure_report: ^1.4.0
 
 dev_dependencies:
   flutter_test:
