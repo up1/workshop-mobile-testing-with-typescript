@@ -35,6 +35,7 @@ $npm run wdio
 ```
 
 ## Step 3 :: View Allure report
+* https://allurereport.org/docs/webdriverio/
 ```
 $allure generate
 $allure serve
