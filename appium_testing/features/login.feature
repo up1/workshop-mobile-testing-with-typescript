@@ -4,8 +4,8 @@ Feature: Login flow
 
     Given I am on the login page
     When I login with <username> and <password>
-    Then I should see a flash message saying <message>
+    Then I should see a profile page with <fullname> and <email>
 
     Examples:
-      | username | password             | message                        |
-      | user123 | pass123 | You logged into a secure area! |
+      | username | password | fullname | email |
+      | user123 | pass123 | John Doe  | john.doe@example.com  |

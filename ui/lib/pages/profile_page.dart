@@ -47,8 +47,8 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Profile',
-          key: Key('profile_app_bar_title'),
-          semanticsLabel: 'profile_app_bar_title',
+          key:  Key('profile_app_bar_title'),
+          semanticsIdentifier: 'profile_app_bar_title',
         ),
         backgroundColor: theme.colorScheme.inversePrimary,
         automaticallyImplyLeading: false,
@@ -79,7 +79,7 @@ class ProfilePage extends StatelessWidget {
               Text(
                 user?.name ?? 'Unknown',
                 key: const Key('profile_name_text'),
-                semanticsLabel: 'profile_name_text',
+                semanticsIdentifier: 'profile_name_text',
                 style: theme.textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
@@ -87,7 +87,7 @@ class ProfilePage extends StatelessWidget {
               Text(
                 user?.email ?? '',
                 key: const Key('profile_email_text'),
-                semanticsLabel: 'profile_email_text',
+                semanticsIdentifier: 'profile_email_text',
                 style: theme.textTheme.bodyLarge?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -95,7 +95,9 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               Semantics(
-                label: 'profile_logout_button',
+                identifier: 'profile_logout_button',
+                label: 'Logout',
+                excludeSemantics: true,
                 child: ElevatedButton.icon(
                   key: const Key('profile_logout_button'),
                   onPressed: () => _handleLogout(context),

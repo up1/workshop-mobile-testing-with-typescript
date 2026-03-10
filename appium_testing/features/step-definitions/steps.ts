@@ -3,7 +3,7 @@ import { expect, $ } from '@wdio/globals'
 
 import LoginPage from '../pageobjects/login.page';
 import HomePage from '../pageobjects/home.page';
-import ManageLocator from '../utils/locators';
+import ProfilePage from '../pageobjects/profile.page';
 
 const pages: Record<string, typeof LoginPage> = {
     login: LoginPage
@@ -22,11 +22,8 @@ When(/^I login with (\w+) and (.+)$/, async (username, password) => {
     await LoginPage.login(username, password)
 });
 
-Then(/^I should see a flash message saying (.*)$/, async (message) => {
-    // await expect(SecurePage.flashAlert).toBeExisting();
-    // await expect(SecurePage.flashAlert).toHaveText(expect.stringContaining(message));
-    const profileText = await ManageLocator.getElement("profile_name_text");
-    await expect(profileText).toBeExisting();
-    // await expect(profileText).toHaveText(expect.stringContaining(message));
+Then(/^I should see a profile page with (.*) and (.*)$/, async (fullname, email) => {
+    await ProfilePage.verifyPageOnLoaded(fullname, email);
+    await ProfilePage.logout();
 });
 
