@@ -10,6 +10,10 @@ const capabilities_android = [{
     'appium:newCommandTimeout': 3600,
     'appium:connectHardwareKeyboard': true,
     'appium:printPageSourceOnFindFailure': true,
+
+    // WebView Specifics
+    'appium:autoWebview': false, // Set to true to start directly in WebView
+    'appium:fullContextList': true, // Recommended for multiple WebViews
 }]
 
 // Capabilities for running on iOS Simulator
@@ -19,7 +23,11 @@ const capabilities_ios = [{
     'appium:platformVersion': '26.2',
     'appium:automationName': 'XCUITest',
     // 'appium:app': '/path/to/your.app',
-    'appium:bundleId': 'com.example.ui'
+    'appium:bundleId': 'com.example.ui',
+
+    // WebView Specifics
+    'appium:autoWebview': false, // Set to true to start directly in WebView
+    'appium:fullContextList': true, // Recommended for multiple WebViews
 }];
 
 console.log('Running tests on platform:', process.argv.includes('--capabilities=ios') ? 'iOS Simulator' : 'Android Emulator');
@@ -74,7 +82,7 @@ export const config: WebdriverIO.Config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
