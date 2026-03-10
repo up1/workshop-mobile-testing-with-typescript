@@ -12,10 +12,11 @@ class ProductsPage extends Page {
         const product_list = driver.$(`class name:XCUIElementTypeScrollView`);
         // await product_list.scrollIntoView(false); // Scroll to the last product in the list
         
-        // product_list.scrollIntoView({
-        //     direction: 'up',
-        //     maxScrolls: 10
-        // })
+        // Scroll to the last product in the list with a maximum of 10 scrolls
+        product_list.scrollIntoView({
+            direction: 'up',
+            maxScrolls: 10
+        })
 
         // Scroll to element with text "Moisturizing Cream"
         const last_product = ManageLocator.getElement("product_title_10");
