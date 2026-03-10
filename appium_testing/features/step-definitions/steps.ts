@@ -18,6 +18,7 @@ Given(/^I am on the (\w+) page$/, async (page: string) => {
 
 When(/^I login with (\w+) and (.+)$/, async (username, password) => {
     console.log(`Logging in with username: ${username} and password: ${password}`);
+    await LoginPage.verifyPageOnLoaded();
     await LoginPage.login(username, password)
 });
 

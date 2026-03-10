@@ -103,7 +103,6 @@ class _LoginPageState extends State<LoginPage> {
                 Text(
                   'Sign In',
                   key: const Key('login_title_text'),
-                  semanticsLabel: 'login_title_text',
                   semanticsIdentifier: 'login_title_text2',
                   style: theme.textTheme.headlineMedium,
                   textAlign: TextAlign.center,
@@ -157,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       _errorMessage!,
                       key: const Key('login_error_text'),
-                      semanticsLabel: 'login_error_text',
+                      semanticsIdentifier: 'login_error_text2',
                       style: TextStyle(
                         color: theme.colorScheme.error,
                       ),
@@ -166,9 +165,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 const SizedBox(height: 16),
                 Semantics(
-                  excludeSemantics: true,
                   identifier: 'login_submit_button2',
-                  label: 'login_submit_button',
+                  label: 'Login',
+                  excludeSemantics: true,
                   child: ElevatedButton(
                     key: const Key('login_submit_button'),
                     onPressed: _isLoading ? null : _handleLogin,
