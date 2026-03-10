@@ -1,3 +1,32 @@
+const capabilities_android = [{
+    // capabilities for local Appium with an Android Emulator
+    platformName: 'Android',
+    // browserName: 'Chrome',
+    'appium:deviceName': 'emulator-5554',
+    'appium:automationName': 'UiAutomator2',
+    'appium:appPackage': 'com.example.ui',
+    'appium:ensureWebviewsHavePages': true,
+    'appium:nativeWebScreenshot': true,
+    'appium:newCommandTimeout': 3600,
+    'appium:connectHardwareKeyboard': true,
+    'appium:printPageSourceOnFindFailure': true,
+}]
+
+// Capabilities for running on iOS Simulator
+const capabilities_ios = [{
+    platformName: 'iOS',
+    'appium:deviceName': 'iPhone 17',
+    'appium:platformVersion': '26.2',
+    'appium:automationName': 'XCUITest',
+    // 'appium:app': '/path/to/your.app',
+    'appium:bundleId': 'com.example.ui',
+    'appium:noReset': true,
+}];
+
+console.log('Running tests on platform:', process.argv.includes('--capabilities=ios') ? 'iOS Simulator' : 'Android Emulator');
+const target_platform = process.argv.includes('--capabilities=ios') ? capabilities_ios : capabilities_android;
+
+
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -6,7 +35,7 @@ export const config: WebdriverIO.Config = {
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
     tsConfigPath: './tsconfig.json',
-    
+
     port: 4723,
     //
     // ==================
@@ -52,18 +81,15 @@ export const config: WebdriverIO.Config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-        // capabilities for local Appium with an Android Emulator
-        platformName: 'Android',
-        // browserName: 'Chrome',
-        'appium:deviceName': 'emulator-5554',
-        'appium:automationName': 'UiAutomator2',
-        'appium:appPackage': 'com.example.ui',
-        'appium:ensureWebviewsHavePages': true,
-        'appium:nativeWebScreenshot': true,
-        'appium:newCommandTimeout': 3600,
-        'appium:connectHardwareKeyboard': true
-    }],
+
+
+    // Switch beween Android and iOS capabilities from command line using --capabilities option
+    // e.g. `npx wdio run wdio.conf.ts --capabilities=capabilities_ios` to run on iOS Simulator
+
+    // capabilities from input arguments
+    capabilities: target_platform,
+
+
 
     //
     // ===================
@@ -121,7 +147,7 @@ export const config: WebdriverIO.Config = {
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
     framework: 'cucumber',
-    
+
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
@@ -135,7 +161,7 @@ export const config: WebdriverIO.Config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec',['allure', {outputDir: 'allure-results'}]],
+    reporters: ['spec', ['allure', { outputDir: 'allure-results' }]],
 
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
@@ -286,7 +312,7 @@ export const config: WebdriverIO.Config = {
      */
     // afterFeature: function (uri, feature) {
     // },
-    
+
     /**
      * Runs after a WebdriverIO command gets executed
      * @param {string} commandName hook command name
