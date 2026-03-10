@@ -34,15 +34,13 @@ class HomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              Semantics(
-                identifier: 'home_description_text2',
-                child: Text(
+              Text(
                   'Please login to continue',
                   key: const Key('home_description_text'),
+                  semanticsIdentifier: 'home_description_text2',
                   style: theme.textTheme.bodyLarge,
                   textAlign: TextAlign.center,
                 ),
-              ),
               const SizedBox(height: 32),
               Semantics(
                 identifier: 'home_login_button',
@@ -60,8 +58,8 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Semantics(
-                label: 'home_miniapps_button',
                 identifier: 'home_miniapps_button',
+                label: 'Go to MiniApps',
                 excludeSemantics: true,
                 child: ElevatedButton.icon(
                   key: const Key('home_miniapps_button'),

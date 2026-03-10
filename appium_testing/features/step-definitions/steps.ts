@@ -2,6 +2,7 @@ import { Given, When, Then } from '@wdio/cucumber-framework';
 import { expect, $ } from '@wdio/globals'
 
 import LoginPage from '../pageobjects/login.page';
+import HomePage from '../pageobjects/home.page';
 import ManageLocator from '../utils/locators';
 
 const pages: Record<string, typeof LoginPage> = {
@@ -10,23 +11,9 @@ const pages: Record<string, typeof LoginPage> = {
 
 Given(/^I am on the (\w+) page$/, async (page: string) => {
     console.log(`Opening ${page} page...`);
-    driver = await pages[page].openNativeApp();
-
-    // Check welcome message is displayed and the text is correct
-    const welcome_text = await ManageLocator.getElement("home_welcome_text2");
-    await expect(welcome_text).toBeExisting();
-    const welcomeTextValue = await ManageLocator.getElementText("home_welcome_text2");
-    await expect(welcomeTextValue).toContain("Welcome to the App");
-
-    // Check login button is displayed and the text is correct
-    const login_button = await ManageLocator.getElement("home_login_button");
-    await expect(login_button).toBeExisting();
-    const loginButtonText = await ManageLocator.getElementText("home_login_button");
-    await expect(loginButtonText).toContain("Login");
-    
-    // Click login button to navigate to login page
-    await login_button.click();
-
+    driver = await HomePage.openNativeApp();
+    await HomePage.verifyPageOnLoaded();
+    await HomePage.clickLoginButton();
 });
 
 When(/^I login with (\w+) and (.+)$/, async (username, password) => {
