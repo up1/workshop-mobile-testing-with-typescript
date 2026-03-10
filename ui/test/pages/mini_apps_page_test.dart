@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ui/models/login_response.dart';
 import 'package:ui/models/mini_app.dart';
+import 'package:ui/models/product.dart';
 import 'package:ui/models/user.dart';
 import 'package:ui/pages/mini_apps_page.dart';
 import 'package:ui/services/api_service.dart';
@@ -33,6 +34,13 @@ class FakeApiServiceWithMiniApps implements ApiService {
   Future<void> logout(String token) async {
     logoutCalled = true;
   }
+
+  @override
+  Future<List<Product>> getProducts() async => const [];
+
+  @override
+  Future<Product> getProduct(int id) async =>
+      throw Exception('Not implemented');
 }
 
 /// Fake API that returns an empty list.
@@ -50,6 +58,13 @@ class FakeApiServiceEmpty implements ApiService {
 
   @override
   Future<void> logout(String token) async {}
+
+  @override
+  Future<List<Product>> getProducts() async => const [];
+
+  @override
+  Future<Product> getProduct(int id) async =>
+      throw Exception('Not implemented');
 }
 
 /// Fake API that throws on getMiniApps.
@@ -69,6 +84,13 @@ class FakeApiServiceError implements ApiService {
 
   @override
   Future<void> logout(String token) async {}
+
+  @override
+  Future<List<Product>> getProducts() async => const [];
+
+  @override
+  Future<Product> getProduct(int id) async =>
+      throw Exception('Not implemented');
 }
 
 void main() {

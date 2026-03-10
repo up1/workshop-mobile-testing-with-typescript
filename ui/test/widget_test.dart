@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ui/main.dart';
 import 'package:ui/models/login_response.dart';
 import 'package:ui/models/mini_app.dart';
+import 'package:ui/models/product.dart';
 import 'package:ui/models/user.dart';
 import 'package:ui/services/api_service.dart';
 import 'package:ui/services/session_manager.dart';
@@ -22,6 +23,13 @@ class FakeApiService implements ApiService {
 
   @override
   Future<void> logout(String token) async {}
+
+  @override
+  Future<List<Product>> getProducts() async => const [];
+
+  @override
+  Future<Product> getProduct(int id) async =>
+      throw Exception('Not implemented');
 }
 
 void main() {

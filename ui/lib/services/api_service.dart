@@ -1,5 +1,6 @@
 import '../models/login_response.dart';
 import '../models/mini_app.dart';
+import '../models/product.dart';
 
 /// Abstract interface for API calls.
 ///
@@ -23,4 +24,14 @@ abstract class ApiService {
   ///
   /// The [token] is sent to the server so the session can be invalidated.
   Future<void> logout(String token);
+
+  /// Fetches a paginated list of products.
+  ///
+  /// Returns a list of [Product] with basic details.
+  Future<List<Product>> getProducts();
+
+  /// Fetches detailed information for a single product by [id].
+  ///
+  /// Returns a [Product] with full details.
+  Future<Product> getProduct(int id);
 }

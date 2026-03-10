@@ -39,6 +39,20 @@
     * User clicks on logout button on profile page.
     * App clears stored authentication token and user data, then navigates back to home page.
 
+## 5. Flow 4 Show list of products and show product details
+* Home page -> List of products
+    * User clicks on products button on home page, which navigates to products list page.
+    * App sends request to API to fetch list of products.
+    * API returns a list of products with basic details (id,title,price,thumbnail).
+      * https://dummyjson.com/products?limit=10&select=id,title,price,thumbnail
+    * App displays the list of products to the user.
+* List of products -> Show product details
+    * User selects a product from the list, app navigates to product details page.
+    * App sends request to API to fetch detailed information about the selected product using its id.
+      * https://dummyjson.com/products/{id}?select=id,title,price,thumbnail
+    * API returns detailed information about the product (id,title,price,thumbnail).
+    * App displays the product details
+
 ## API Specifications
 * Login API
     * Endpoint: POST /api/login

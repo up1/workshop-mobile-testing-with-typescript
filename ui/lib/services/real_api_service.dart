@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../config/app_config.dart';
 import '../models/login_response.dart';
 import '../models/mini_app.dart';
+import '../models/product.dart';
 import 'api_service.dart';
 
 /// Calls the real backend API over HTTP.
@@ -65,6 +66,49 @@ class RealApiService implements ApiService {
 
     if (response.statusCode != 200) {
       throw Exception('Logout failed: ${response.statusCode}');
+    }
+  }
+
+  @override
+  Future<List<Product>> getProducts() async {
+    final uri = Uri.parse(
+      'https://dummyjson.com/products?limit=10&select=id,title,price,thumbnail',
+    );
+    final response = await _client.get(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+    ).timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      final list = data['products'] as List<dynamic>;
+      return list
+          .map((e) => Product.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } else {
+      throw Exception(
+        'Failed to fetch products: ${response.statusCode}',
+      );
+    }
+  }
+
+  @override
+  Future<Product> getProduct(int id) async {
+    final uri = Uri.parse(
+      'https://dummyjson.com/products/$id?select=id,title,price,thumbnail',
+    );
+    final response = await _client.get(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+    ).timeout(Duration(seconds: AppConfig.apiTimeoutSeconds));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      return Product.fromJson(data);
+    } else {
+      throw Exception(
+        'Failed to fetch product: ${response.statusCode}',
+      );
     }
   }
 }

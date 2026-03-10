@@ -8,6 +8,7 @@ import 'package:ui/services/api_service.dart';
 import 'package:ui/services/session_manager.dart';
 import 'package:ui/models/login_response.dart';
 import 'package:ui/models/mini_app.dart';
+import 'package:ui/models/product.dart';
 
 /// A fake API service for the profile page tests.
 class FakeApiService implements ApiService {
@@ -28,6 +29,13 @@ class FakeApiService implements ApiService {
   Future<void> logout(String token) async {
     logoutCalled = true;
   }
+
+  @override
+  Future<List<Product>> getProducts() async => const [];
+
+  @override
+  Future<Product> getProduct(int id) async =>
+      throw Exception('Not implemented');
 }
 
 void main() {

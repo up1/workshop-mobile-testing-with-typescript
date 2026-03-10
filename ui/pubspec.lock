@@ -302,7 +302,7 @@ packages:
     source: hosted
     version: "0.7.9"
   test_reporter:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: test_reporter
       sha256: "71e184d408218010b0ad497094ba795ffef4ca40dcb5054870ebc0464b9836dc"

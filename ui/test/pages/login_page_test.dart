@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:ui/models/login_response.dart';
 import 'package:ui/models/mini_app.dart';
+import 'package:ui/models/product.dart';
 import 'package:ui/models/user.dart';
 import 'package:ui/pages/login_page.dart';
 import 'package:ui/services/api_service.dart';
@@ -24,6 +25,13 @@ class FakeApiServiceSuccess implements ApiService {
 
   @override
   Future<void> logout(String token) async {}
+
+  @override
+  Future<List<Product>> getProducts() async => const [];
+
+  @override
+  Future<Product> getProduct(int id) async =>
+      throw Exception('Not implemented');
 }
 
 /// A fake API service for testing that always fails.
@@ -38,6 +46,13 @@ class FakeApiServiceFailure implements ApiService {
 
   @override
   Future<void> logout(String token) async {}
+
+  @override
+  Future<List<Product>> getProducts() async => const [];
+
+  @override
+  Future<Product> getProduct(int id) async =>
+      throw Exception('Not implemented');
 }
 
 void main() {

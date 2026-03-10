@@ -5,6 +5,8 @@ import '../pages/home_page.dart';
 import '../pages/login_page.dart';
 import '../pages/mini_app_webview_page.dart';
 import '../pages/mini_apps_page.dart';
+import '../pages/product_detail_page.dart';
+import '../pages/products_page.dart';
 import '../pages/profile_page.dart';
 import '../services/api_service.dart';
 import '../services/session_manager.dart';
@@ -18,6 +20,8 @@ import '../services/session_manager.dart';
 /// - `/profile`         → [ProfilePage] (requires auth)
 /// - `/miniapps`        → [MiniAppsPage] (requires auth)
 /// - `/miniapps/webview`→ [MiniAppWebViewPage] (requires auth, extra=MiniApp)
+/// - `/products`        → [ProductsPage]
+/// - `/products/:id`    → [ProductDetailPage]
 GoRouter createRouter({
   required ApiService apiService,
   required SessionManager sessionManager,
@@ -74,6 +78,22 @@ GoRouter createRouter({
             miniApp: miniApp,
             apiService: apiService,
             sessionManager: sessionManager,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/products',
+        builder: (context, state) => ProductsPage(
+          apiService: apiService,
+        ),
+      ),
+      GoRoute(
+        path: '/products/:id',
+        builder: (context, state) {
+          final id = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+          return ProductDetailPage(
+            productId: id,
+            apiService: apiService,
           );
         },
       ),

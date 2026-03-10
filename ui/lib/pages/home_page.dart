@@ -71,6 +71,21 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
+              Semantics(
+                identifier: 'home_products_button',
+                label: 'Go to Products',
+                excludeSemantics: true,
+                child: ElevatedButton.icon(
+                  key: const Key('home_products_button'),
+                  onPressed: () => context.go('/products'),
+                  icon: const Icon(Icons.shopping_bag),
+                  label: const Text('Go to Products'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(200, 48),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
