@@ -31,7 +31,8 @@ $npm install typescript ts-node --save-dev
 
 ## Step 2 :: Run tests
 ```
-$npm run wdio
+$npm run wdio:ios
+$npm run wdio:android
 ```
 
 ## Step 3 :: View Allure report

@@ -19,8 +19,7 @@ const capabilities_ios = [{
     'appium:platformVersion': '26.2',
     'appium:automationName': 'XCUITest',
     // 'appium:app': '/path/to/your.app',
-    'appium:bundleId': 'com.example.ui',
-    'appium:noReset': true,
+    'appium:bundleId': 'com.example.ui'
 }];
 
 console.log('Running tests on platform:', process.argv.includes('--capabilities=ios') ? 'iOS Simulator' : 'Android Emulator');
