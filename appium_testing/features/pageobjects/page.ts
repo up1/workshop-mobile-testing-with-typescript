@@ -1,17 +1,6 @@
 import { browser } from "@wdio/globals";
 import { remote } from "webdriverio";
 
-const caps = {
-    platformName: "Android",
-    "appium:automationName": "UiAutomator2",
-    "appium:appPackage": "com.example.ui",
-    "appium:deviceName": "emulator-5554",
-    "appium:ensureWebviewsHavePages": true,
-    "appium:nativeWebScreenshot": true,
-    "appium:newCommandTimeout": 3600,
-    "appium:connectHardwareKeyboard": true,
-};
-
 /**
  * main page object containing all methods, selectors and functionality
  * that is shared across all page objects
@@ -32,7 +21,7 @@ export default class Page {
             hostname: "127.0.0.1",
             port: 4723,
             path: "/",
-            capabilities: caps
+            capabilities: {}
         });
         return driver;
     }
