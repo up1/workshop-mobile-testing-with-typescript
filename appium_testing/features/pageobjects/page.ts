@@ -1,5 +1,6 @@
 import { browser } from "@wdio/globals";
 import { remote } from "webdriverio";
+import { config } from "../../wdio.conf";
 
 /**
  * main page object containing all methods, selectors and functionality
@@ -21,7 +22,7 @@ export default class Page {
             hostname: "127.0.0.1",
             port: 4723,
             path: "/",
-            capabilities: {}
+            capabilities: config.capabilities[0]
         });
         return driver;
     }

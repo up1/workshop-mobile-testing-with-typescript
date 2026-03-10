@@ -27,26 +27,26 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Welcome to the App',
-                key: const Key('home_welcome_text'),
-                semanticsLabel: 'home_welcome_text',
-                semanticsIdentifier: 'home_welcome_text',
-                style: theme.textTheme.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
+                  'Welcome to the App',
+                  key: const Key('home_welcome_text'),
+                  semanticsIdentifier: 'home_welcome_text2',
+                  style: theme.textTheme.headlineMedium,
+                  textAlign: TextAlign.center,
+                ),
               const SizedBox(height: 16),
-              Text(
-                'Please login to continue',
-                key: const Key('home_description_text'),
-                semanticsLabel: 'home_description_text',
-                semanticsIdentifier: 'home_description_text',
-                style: theme.textTheme.bodyLarge,
+              Semantics(
+                identifier: 'home_description_text2',
+                child: Text(
+                  'Please login to continue',
+                  key: const Key('home_description_text'),
+                  style: theme.textTheme.bodyLarge,
                 textAlign: TextAlign.center,
+                ),
               ),
               const SizedBox(height: 32),
               Semantics(
-                label: 'home_login_button',
                 identifier: 'home_login_button',
+                label: 'Go to Login',
                 excludeSemantics: true,
                 child: ElevatedButton.icon(
                   key: const Key('home_login_button'),

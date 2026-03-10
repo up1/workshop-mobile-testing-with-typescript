@@ -13,12 +13,16 @@ Given(/^I am on the (\w+) page$/, async (page: string) => {
     driver = await pages[page].openNativeApp();
 
     // Check welcome message is displayed and the text is correct
-    const welcome_text = await driver.$("accessibility id:home_welcome_text");
+    const welcome_text = await driver.$("accessibility id:home_welcome_text2");
     await expect(welcome_text).toBeExisting();
+    const welcomeTextValue = await welcome_text.getText();
+    await expect(welcomeTextValue).toContain("Welcome to the App");
 
     // Check login button is displayed and the text is correct
     const login_button = await driver.$("accessibility id:home_login_button");
     await expect(login_button).toBeExisting();
+    const loginButtonText = await login_button.getValue();
+    await expect(loginButtonText).toContain("Login");
     
     // Click login button to navigate to login page
     await login_button.click();
