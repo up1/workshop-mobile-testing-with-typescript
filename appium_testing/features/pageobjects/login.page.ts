@@ -17,6 +17,7 @@ class LoginPage extends Page {
     }
 
     public async login (username: string, password: string) {
+        console.log(`Performing login with username: ${username} and password: ${password}`);
         const inputUsername = await ManageLocator.getElement("login_username_field2");
         await inputUsername.click();
         await inputUsername.setValue(username);

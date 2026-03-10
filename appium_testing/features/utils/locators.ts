@@ -14,6 +14,15 @@ export default class ManageLocator {
         }
     }
 
+    // Get Element list based on locator type and platform
+    public static getElementList(locator: string) {
+        if (config.capabilities[0].platformName === "iOS") {
+            return driver.$$(`accessibility id:${locator}`);
+        } else {
+            return driver.$$(`-android uiautomator:new UiSelector().resourceId("${locator}")`);
+        }
+    }
+
     // Get text of element based on locator type and platform
     public static async getElementText(locator: string) {
         const element = await this.getElement(locator);

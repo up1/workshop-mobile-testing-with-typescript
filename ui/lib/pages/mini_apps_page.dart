@@ -91,13 +91,13 @@ class _MiniAppsPageState extends State<MiniAppsPage> {
         title: const Text(
           'MiniApps',
           key: Key('miniapps_app_bar_title'),
-          semanticsLabel: 'miniapps_app_bar_title',
+          semanticsIdentifier: 'miniapps_app_bar_title',
         ),
         backgroundColor: theme.colorScheme.inversePrimary,
         automaticallyImplyLeading: false,
         actions: [
           Semantics(
-            label: 'miniapps_logout_button',
+            identifier: 'miniapps_logout_button',
             child: IconButton(
               key: const Key('miniapps_logout_button'),
               onPressed: _handleLogout,
@@ -115,7 +115,7 @@ class _MiniAppsPageState extends State<MiniAppsPage> {
     if (_isLoading) {
       return Center(
         child: Semantics(
-          label: 'miniapps_loading_indicator',
+          identifier: 'miniapps_loading_indicator',
           child: const CircularProgressIndicator(
             key: Key('miniapps_loading_indicator'),
           ),
@@ -133,13 +133,13 @@ class _MiniAppsPageState extends State<MiniAppsPage> {
               Text(
                 _errorMessage!,
                 key: const Key('miniapps_error_text'),
-                semanticsLabel: 'miniapps_error_text',
+                semanticsIdentifier: 'miniapps_error_text',
                 style: TextStyle(color: theme.colorScheme.error),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               Semantics(
-                label: 'miniapps_retry_button',
+                identifier: 'miniapps_retry_button',
                 child: ElevatedButton(
                   key: const Key('miniapps_retry_button'),
                   onPressed: _fetchMiniApps,
@@ -157,7 +157,7 @@ class _MiniAppsPageState extends State<MiniAppsPage> {
         child: Text(
           'No miniApps available',
           key: const Key('miniapps_empty_text'),
-          semanticsLabel: 'miniapps_empty_text',
+          semanticsIdentifier: 'miniapps_empty_text',
           style: theme.textTheme.bodyLarge,
         ),
       );
@@ -168,38 +168,37 @@ class _MiniAppsPageState extends State<MiniAppsPage> {
       itemCount: _miniApps!.length,
       itemBuilder: (context, index) {
         final miniApp = _miniApps![index];
-        return Card(
-          key: Key('miniapp_card_${miniApp.id}'),
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: ListTile(
-            key: Key('miniapp_tile_${miniApp.id}'),
-            leading: CircleAvatar(
-              backgroundColor: theme.colorScheme.primaryContainer,
-              child: Text(
-                '${miniApp.id}',
-                style: TextStyle(
-                  color: theme.colorScheme.onPrimaryContainer,
+        return Semantics(
+          identifier: 'miniapp_list',
+          container: true,
+          child: Card(
+            key: Key('miniapp_card_${miniApp.id}'),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: ListTile(
+              key: Key('miniapp_tile_${miniApp.id}'),
+              leading: CircleAvatar(
+                backgroundColor: theme.colorScheme.primaryContainer,
+                child: Text(
+                  '${miniApp.id}',
+                  style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
                 ),
               ),
+              title: Text(
+                miniApp.name,
+                key: Key('miniapp_name_${miniApp.id}'),
+                semanticsIdentifier: 'miniapp_name_${miniApp.id}',
+              ),
+              subtitle: Text(
+                miniApp.url,
+                key: Key('miniapp_url_${miniApp.id}'),
+                semanticsIdentifier: 'miniapp_url_${miniApp.id}',
+                style: theme.textTheme.bodySmall,
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                context.go('/miniapps/webview', extra: miniApp);
+              },
             ),
-            title: Text(
-              miniApp.name,
-              key: Key('miniapp_name_${miniApp.id}'),
-              semanticsLabel: 'miniapp_name_${miniApp.id}',
-            ),
-            subtitle: Text(
-              miniApp.url,
-              key: Key('miniapp_url_${miniApp.id}'),
-              semanticsLabel: 'miniapp_url_${miniApp.id}',
-              style: theme.textTheme.bodySmall,
-            ),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              context.go(
-                '/miniapps/webview',
-                extra: miniApp,
-              );
-            },
           ),
         );
       },

@@ -35,6 +35,12 @@ $npm run wdio:ios
 $npm run wdio:android
 ```
 
+Run with tags:
+```
+$npm run wdio:ios -- --cucumberOpts.tags="@flow01"
+$npm run wdio:ios -- --cucumberOpts.tags="@flow02"
+```
+
 ## Step 3 :: View Allure report
 * https://allurereport.org/docs/webdriverio/
 ```
