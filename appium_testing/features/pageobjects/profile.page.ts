@@ -1,4 +1,3 @@
-import { $ } from '@wdio/globals'
 import Page from './page';
 import ManageLocator from '../utils/locators';
 
