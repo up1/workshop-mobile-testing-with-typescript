@@ -40,13 +40,20 @@ class _MiniAppWebViewPageState extends State<MiniAppWebViewPage> {
     super.initState();
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..addJavaScriptChannel(
+        'FlutterChannel',
+        onMessageReceived: _onMessageReceived,
+      )
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (_) {
             if (mounted) setState(() => _isLoading = true);
           },
           onPageFinished: (_) {
-            if (mounted) setState(() => _isLoading = false);
+            if (mounted) {
+              setState(() => _isLoading = false);
+              _sendUsernameToWebView();
+            }
           },
           onWebResourceError: (error) {
             if (mounted) {
@@ -54,8 +61,28 @@ class _MiniAppWebViewPageState extends State<MiniAppWebViewPage> {
             }
           },
         ),
-      )
-      ..loadRequest(Uri.parse(widget.miniApp.url));
+      );
+    _controller.loadRequest(Uri.parse(widget.miniApp.url));
+  }
+
+  void _sendUsernameToWebView() {
+    final username = widget.sessionManager.user?.name ?? '';
+    if (username.isNotEmpty) {
+      _controller.runJavaScript('receiveUsername("$username")');
+    }
+  }
+
+  void _onMessageReceived(JavaScriptMessage message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        key: const Key('webview_snackbar'),
+        content: Text(
+          message.message,
+          key: const Key('webview_received_message'),
+        ),
+      ),
+    );
   }
 
   Future<void> _handleLogout() async {

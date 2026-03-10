@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini App</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 16px;
+      background-color: #fafafa;
+    }
+    #welcome_message {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 24px;
+      color: #333;
+    }
+    #hello_message {
+      width: 80%;
+      max-width: 300px;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      outline: none;
+    }
+    #hello_message:focus {
+      border-color: #6200ee;
+    }
+    #sent_button {
+      padding: 12px 32px;
+      font-size: 16px;
+      background-color: #6200ee;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #sent_button:active {
+      background-color: #3700b3;
+    }
+  </style>
+</head>
+<body>
+  <label id="welcome_message">Welcome</label>
+  <input id="hello_message" type="text" placeholder="Enter your message" />
+  <button id="sent_button">Sent</button>
+
+  <script>
+    // Called from Flutter to set the username.
+    function receiveUsername(username) {
+      var label = document.getElementById('welcome_message');
+      label.innerText = 'Hello, ' + username;
+    }
+
+    // Send message back to Flutter via JavaScriptChannel.
+    document.getElementById('sent_button').addEventListener('click', function () {
+      var message = document.getElementById('hello_message').value;
+      if (typeof FlutterChannel !== 'undefined') {
+        FlutterChannel.postMessage(message);
+      } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.FlutterChannel) {
+        window.webkit.messageHandlers.FlutterChannel.postMessage(message);
+      }
+    });
+  </script>
+</body>
+</html>

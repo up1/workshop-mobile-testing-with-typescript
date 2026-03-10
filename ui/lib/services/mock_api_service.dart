@@ -36,7 +36,7 @@ class MockApiService implements ApiService {
       MiniApp(
         id: 1,
         name: 'MiniApp 1',
-        url: 'https://miniapp1.example.com',
+        url: 'https://demo-web-hello-form.vercel.app/',
       ),
       MiniApp(
         id: 2,
