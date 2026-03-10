@@ -112,9 +112,15 @@ test/
 # Run in mock mode (default)
 cd ui && flutter run
 
+# Analyze code
+flutter analyze
+
 # Run tests
 flutter test
 
 # Run a specific test file
 flutter test test/pages/products_page_test.dart
+
+# Test with RealApi (make sure backend is running at baseUrl in AppConfig)
+flutter run -d <device_id> --dart-define=USE_MOCK_API=false
 ```
