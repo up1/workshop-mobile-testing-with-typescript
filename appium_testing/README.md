@@ -39,6 +39,7 @@ Run with tags:
 ```
 $npm run wdio:ios -- --cucumberOpts.tags="@flow01"
 $npm run wdio:ios -- --cucumberOpts.tags="@flow02"
+$npm run wdio:ios -- --cucumberOpts.tags="@flow03"
 ```
 
 ## Step 3 :: View Allure report

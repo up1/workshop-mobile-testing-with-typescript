@@ -10,9 +10,18 @@ class MiniAppListPage extends Page {
         const titleTextValue = await ManageLocator.getElementText("miniapps_app_bar_title");
         await expect(titleTextValue).toContain("MiniApps");
 
-        // Verify miniApp list is displayed
-        const miniAppList = await ManageLocator.getElementList("miniapp_list");
-        await expect(miniAppList.length).toBeGreaterThan(0);
+        // Wait 400ms for the miniApp list to load
+        // Bad practice to use fixed wait, but we can use it here for simplicity. In real test, we should use dynamic wait instead.
+        await driver.pause(400);
+
+        // Best practice: Verify miniApp list is displayed and has 2 miniApps in the list using dynamic wait
+        await driver.waitUntil(async () => {
+            const miniAppList = await ManageLocator.getElementList("miniapp_list");
+            return await miniAppList.length > 0;
+        }, {
+            timeout: 1000,
+            timeoutMsg: 'Expected miniApp list to be displayed after 1s'
+        });
 
         // Verify there are 2 miniApps in the list
         const miniAppItems = await ManageLocator.getElementList("miniapp_list");
@@ -22,6 +31,11 @@ class MiniAppListPage extends Page {
     public async logout() {
         const logoutButton = await ManageLocator.getElement("miniapps_logout_button");
         await logoutButton.click();
+    }
+
+    public async tapMiniApp(locator: string) {
+        const miniApp = await ManageLocator.getElement(locator);
+        await miniApp.click();
     }
     
 }

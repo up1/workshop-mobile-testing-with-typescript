@@ -13,5 +13,4 @@ Given(/^I am on the login page to use miniApp$/, async () => {
 
 Then(/^I should see a miniApp list page$/, async () => {
     await MiniAppListPage.verifyPageOnLoaded();
-    await MiniAppListPage.logout();
 });
