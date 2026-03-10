@@ -39,6 +39,11 @@ class HomePage extends Page {
         await miniapps_button.click(); 
     }
 
+    public async clickProductButton() {
+        const product_button = await ManageLocator.getElement("home_products_button");
+        await product_button.click(); 
+    }
+
     /**
      * overwrite specific options to adapt it to page object
      */
