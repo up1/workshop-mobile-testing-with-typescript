@@ -9,8 +9,8 @@ Feature: Use miniApp in webview
     When I tap on the first miniApp
     Then I should see the miniApp webview page
     When I send a <message> from miniApp to Flutter
-    Then I should see a snackbar with the message from the miniApp
+    Then I should see a snackbar with the <message> from the miniApp
 
     Examples:
       | username | password | message |
-      | user123  | pass123 | Hello from miniApp |
+      | user123  | pass123 | Hi from webview |

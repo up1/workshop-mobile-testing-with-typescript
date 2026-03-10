@@ -8,13 +8,15 @@ When(/^I tap on the first miniApp$/, async () => {
 });
 
 Then(/^I should see the miniApp webview page$/, async () => {
-    // await MiniAppFirstPage.verifyMiniAppWebViewPageOnLoaded();
+    await MiniAppFirstPage.verifyMiniAppWebViewPageOnLoaded();
 });
 
 When(/^I send a (.*) from miniApp to Flutter$/, async (message: string) => {
-    // await MiniAppFirstPage.sendMessageFromMiniApp(message);
+    await MiniAppFirstPage.sendMessageFromMiniApp(message);
 });
 
-Then(/^I should see a snackbar with the message from the miniApp$/, async () => {
-    // await MiniAppFirstPage.verifySnackbarMessageFromMiniApp();
+Then(/^I should see a snackbar with the (.*) from the miniApp$/, async (message: string) => {
+    await MiniAppFirstPage.verifySnackbarMessageFromMiniApp(message);
+
+    await MiniAppFirstPage.tapLogoutButton();
 });

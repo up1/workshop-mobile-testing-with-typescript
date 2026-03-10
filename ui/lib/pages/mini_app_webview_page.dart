@@ -78,6 +78,7 @@ class _MiniAppWebViewPageState extends State<MiniAppWebViewPage> {
       SnackBar(
         key: const Key('webview_snackbar'),
         content: Text(
+          semanticsIdentifier: 'webview_received_message',
           message.message,
           key: const Key('webview_received_message'),
         ),
@@ -115,7 +116,7 @@ class _MiniAppWebViewPageState extends State<MiniAppWebViewPage> {
         ),
         backgroundColor: theme.colorScheme.inversePrimary,
         leading: Semantics(
-          label: 'webview_back_button',
+          identifier: 'webview_back_button',
           child: IconButton(
             key: const Key('webview_back_button'),
             icon: const Icon(Icons.arrow_back),
@@ -125,7 +126,7 @@ class _MiniAppWebViewPageState extends State<MiniAppWebViewPage> {
         ),
         actions: [
           Semantics(
-            label: 'webview_logout_button',
+            identifier: 'webview_logout_button',
             child: IconButton(
               key: const Key('webview_logout_button'),
               onPressed: _handleLogout,
