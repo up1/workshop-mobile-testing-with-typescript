@@ -3,34 +3,51 @@ import ManageLocator from '../utils/locators';
 import { expect } from '@wdio/globals';
 
 class MiniAppFirstPage extends Page {
+    private readonly LOCATORS = {
+        logoutButton: 'webview_logout_button',
+        welcomeMessage: 'hello_message',
+        inputField: 'hello_message',
+        sendButton: 'sent_button',
+        snackbar: 'webview_received_message',
+    };
+
     public async tapLogoutButton() {
-        const logoutButton = await ManageLocator.getElement("webview_logout_button");
+        const logoutButton = await ManageLocator.getElement(
+            this.LOCATORS.logoutButton
+        );
         await logoutButton.click();
     }
 
     public async verifyMiniAppWebViewPageOnLoaded() {
-        const welcomeMessage = await ManageLocator.getElement("hello_message");
-        await expect(welcomeMessage).toBeDisplayed(); 
+        const welcomeMessage = await ManageLocator.getElement(
+            this.LOCATORS.welcomeMessage
+        );
+        await expect(welcomeMessage).toBeDisplayed();
     }
 
     public async sendMessageFromMiniApp(message: string) {
-        const inputField = await ManageLocator.getElement("hello_message");
+        const inputField = await ManageLocator.getElement(
+            this.LOCATORS.inputField
+        );
         await inputField.setValue(message);
 
-        // Click the send button
-        const sendButton = await ManageLocator.getElement("sent_button");
+        const sendButton = await ManageLocator.getElement(
+            this.LOCATORS.sendButton
+        );
         await sendButton.click();
     }
 
     public async verifySnackbarMessageFromMiniApp(message: string) {
-        // Verify the snackbar message
-        const snackbar = await ManageLocator.getElement("webview_received_message");
+        const snackbar = await ManageLocator.getElement(
+            this.LOCATORS.snackbar
+        );
         await expect(snackbar).toBeDisplayed();
-        // Check text of the snackbar
-        const snackbarText = await ManageLocator.getElementText("webview_received_message");
+
+        const snackbarText = await ManageLocator.getElementText(
+            this.LOCATORS.snackbar
+        );
         expect(snackbarText).toBe(message);
     }
-
 }
 
 export default new MiniAppFirstPage();

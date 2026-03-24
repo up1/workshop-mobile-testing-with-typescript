@@ -2,32 +2,56 @@ import Page from './page';
 import ManageLocator from '../utils/locators';
 
 class LoginPage extends Page {
+    private readonly LOCATORS = {
+        titleText: 'login_title_text2',
+        submitButton: 'login_submit_button2',
+        usernameField: 'login_username_field2',
+        passwordField: 'login_password_field2',
+    };
 
     public async verifyPageOnLoaded() {
-        const title_text = await ManageLocator.getElement("login_title_text2");
-        await expect(title_text).toBeExisting();
-        const titleTextValue = await ManageLocator.getElementText("login_title_text2");
-        await expect(titleTextValue).toContain("Sign In");
+        const titleText = await ManageLocator.getElement(
+            this.LOCATORS.titleText
+        );
+        await expect(titleText).toBeExisting();
 
-        // Login button should be displayed and the text is correct
-        const btnSubmit = await ManageLocator.getElement("login_submit_button2");
-        await expect(btnSubmit).toBeExisting();
-        const btnSubmitText = await ManageLocator.getElementText("login_submit_button2");
-        await expect(btnSubmitText).toContain("Login");
+        const titleTextValue = await ManageLocator.getElementText(
+            this.LOCATORS.titleText
+        );
+        await expect(titleTextValue).toContain('Sign In');
+
+        const submitButton = await ManageLocator.getElement(
+            this.LOCATORS.submitButton
+        );
+        await expect(submitButton).toBeExisting();
+
+        const submitButtonText = await ManageLocator.getElementText(
+            this.LOCATORS.submitButton
+        );
+        await expect(submitButtonText).toContain('Login');
     }
 
-    public async login (username: string, password: string) {
-        console.log(`Performing login with username: ${username} and password: ${password}`);
-        const inputUsername = await ManageLocator.getElement("login_username_field2");
-        await inputUsername.click();
-        await inputUsername.setValue(username);
-        
-        const inputPassword = await ManageLocator.getElement("login_password_field2");
-        await inputPassword.click();
-        await inputPassword.setValue(password);
-        
-        const btnSubmit = await ManageLocator.getElement("login_submit_button2");
-        await btnSubmit.click();
+    public async login(username: string, password: string) {
+        console.log(
+            `Performing login with username: ${username} and password: ${password}`
+        );
+
+        const usernameInput = await ManageLocator.getElement(
+            this.LOCATORS.usernameField
+        );
+        await usernameInput.click();
+        await usernameInput.setValue(username);
+
+        const passwordInput = await ManageLocator.getElement(
+            this.LOCATORS.passwordField
+        );
+        await passwordInput.click();
+        await passwordInput.setValue(password);
+
+        const submitButton = await ManageLocator.getElement(
+            this.LOCATORS.submitButton
+        );
+        await submitButton.click();
     }
 }
 

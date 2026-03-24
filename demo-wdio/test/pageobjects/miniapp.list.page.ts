@@ -3,11 +3,16 @@ import ManageLocator from '../utils/locators';
 import { expect } from '@wdio/globals';
 
 class MiniAppListPage extends Page {
+    private readonly LOCATORS = {
+        appBarTitle: 'miniapps_app_bar_title',
+        miniAppList: 'miniapp_list',
+        logoutButton: 'miniapps_logout_button',
+    };
 
     public async verifyPageOnLoaded() {
-        const title_text = await ManageLocator.getElement("miniapps_app_bar_title");
+        const title_text = await ManageLocator.getElement(this.LOCATORS.appBarTitle);
         await expect(title_text).toBeExisting();
-        const titleTextValue = await ManageLocator.getElementText("miniapps_app_bar_title");
+        const titleTextValue = await ManageLocator.getElementText(this.LOCATORS.appBarTitle);
         await expect(titleTextValue).toContain("MiniApps");
 
         // Wait 400ms for the miniApp list to load
@@ -16,7 +21,7 @@ class MiniAppListPage extends Page {
 
         // Best practice: Verify miniApp list is displayed and has 2 miniApps in the list using dynamic wait
         await driver.waitUntil(async () => {
-            const miniAppList = await ManageLocator.getElementList("miniapp_list");
+            const miniAppList = await ManageLocator.getElementList(this.LOCATORS.miniAppList);
             return await miniAppList.length > 0;
         }, {
             timeout: 1000,
@@ -24,12 +29,12 @@ class MiniAppListPage extends Page {
         });
 
         // Verify there are 2 miniApps in the list
-        const miniAppItems = await ManageLocator.getElementList("miniapp_list");
+        const miniAppItems = await ManageLocator.getElementList(this.LOCATORS.miniAppList);
         await expect(miniAppItems.length).toEqual(2);
     }   
 
     public async logout() {
-        const logoutButton = await ManageLocator.getElement("miniapps_logout_button");
+        const logoutButton = await ManageLocator.getElement(this.LOCATORS.logoutButton);
         await logoutButton.click();
     }
 
