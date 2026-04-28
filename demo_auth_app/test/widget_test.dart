@@ -1,30 +1,60 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'dart:math';
 
 import 'package:demo_auth_app/main.dart';
+import 'package:demo_auth_app/screens/profile_page.dart';
+import 'package:demo_auth_app/screens/scan_page.dart';
+import 'package:demo_auth_app/services/auth_service.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  setUp(() {
+    FlutterSecureStorage.setMockInitialValues({});
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('fingerprint flow opens scan page then profile on success',
+      (tester) async {
+    final service = MockAuthService(
+      random: Random(0),
+      delay: Duration.zero,
+      successRate: 1.0,
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpWidget(DemoAuthApp(authService: service));
+
+    await tester.tap(find.byKey(const Key('fingerprintButton')));
+    await tester.pumpAndSettle();
+    expect(find.byType(ScanPage), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('startScanButton')));
     await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.byType(ProfilePage), findsOneWidget);
+    expect(find.text('Authenticated via Fingerprint'), findsOneWidget);
+  });
+
+  testWidgets('face scan failure shows error on scan page', (tester) async {
+    final service = MockAuthService(
+      random: Random(0),
+      delay: Duration.zero,
+      successRate: 0.0,
+    );
+
+    await tester.pumpWidget(DemoAuthApp(authService: service));
+
+    await tester.tap(find.byKey(const Key('faceScanButton')));
+    await tester.pumpAndSettle();
+    expect(find.byType(ScanPage), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('startScanButton')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(ProfilePage), findsNothing);
+    expect(find.textContaining('Face not recognised'), findsOneWidget);
   });
 }
