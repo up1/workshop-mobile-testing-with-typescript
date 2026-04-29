@@ -1,5 +1,6 @@
 # Workshop
-
+* Biometric authentication app test with WebDriverIO and Appium
+* Switch context to webview and perform search in Safari
 
 ## Run test
 ```
