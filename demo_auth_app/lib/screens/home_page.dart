@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../services/auth_service.dart';
 import 'scan_page.dart';
@@ -14,6 +15,19 @@ class HomePage extends StatelessWidget {
         builder: (_) => ScanPage(type: type, authService: authService),
       ),
     );
+  }
+
+  Future<void> _openWebBrowser(BuildContext context) async {
+    final Uri url = Uri.parse('https://www.google.com');
+    final bool launched = await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    );
+    if (!launched && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not open browser')),
+      );
+    }
   }
 
   @override
@@ -46,6 +60,14 @@ class HomePage extends StatelessWidget {
               label: 'Authenticate with Face Scan',
               identifier: 'facescan_button',
               onPressed: () => _openScan(context, BiometricType.face),
+            ),
+            const SizedBox(height: 16),
+            _BiometricButton(
+              key: const Key('openBrowserButton'),
+              icon: Icons.public,
+              label: 'Open Web Browser',
+              identifier: 'open_browser_button',
+              onPressed: () => _openWebBrowser(context),
             ),
           ],
         ),

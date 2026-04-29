@@ -28,6 +28,8 @@ $ flutter run
 
 
 ## Appium capabilities for iOS
+* https://appium.io/docs/en/2.0/guides/caps/
+* https://appium.github.io/appium-xcuitest-driver/11.0/reference/capabilities/
 ```
 {
   "platformName": "iOS",
@@ -36,7 +38,9 @@ $ flutter run
   "appium:automationName": "XCUITest",
   "appium:bundleId": "com.example.demoAuthApp",
   "appium:connectionRetryTimeout": 60000,
-  "appium:noReset": true
+  "appium:noReset": true,
+  "appium:autoWebview": true,
+  "appium:includeSafariInWebviews": true
 }
 ```
 
@@ -85,3 +89,6 @@ $npm run wdio
 
 Config `wdio.conf.js` with the capabilities above, and set `specs` to `./test/specs/**/*.ts` to run all test files in the `test/specs` folder.
 * maxInstances: 1 (to run tests sequentially, especially when using real devices or emulators/simulators)
+
+## Switch context to Safari in the app and perform search
+* https://webdriver.io/docs/api/mobile/switchContext/
