@@ -64,12 +64,24 @@ $ appium
 ## Create project with [WebDriverIO](https://webdriver.io/docs/gettingstarted)
 
 Create project with WebDriverIO CLI, choose `appium` and `mocha` as test framework. Then, update `wdio.conf.js` with the capabilities above.
+* E2E Testing - of Web or Mobile Applications
+* On my local machine
+* Mobile - native, hybrid and mobile web apps, on Android or iOS
+* [Mocha](https://mochajs.org/)
+* TypeScript
+* Use [page objects](https://martinfowler.com/bliki/PageObject.html)
+* Allure report
+* [wait-for-webdriverio](https://www.npmjs.com/package/wdio-wait-for)
+
 ```
 $npm init wdio@latest demo_auth_app_test
 $cd demo_auth_app_test
 ```
 
-Run test with WebDriverIO CLI
+Run test
 ```
-$npx wdio run wdio.conf.js
+$npm run wdio
 ```
+
+Config `wdio.conf.js` with the capabilities above, and set `specs` to `./test/specs/**/*.ts` to run all test files in the `test/specs` folder.
+* maxInstances: 1 (to run tests sequentially, especially when using real devices or emulators/simulators)

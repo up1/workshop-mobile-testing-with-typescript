@@ -36,6 +36,7 @@ class HomePage extends StatelessWidget {
               key: const Key('fingerprintButton'),
               icon: Icons.fingerprint,
               label: 'Authenticate with Fingerprint',
+              identifier: 'fingerprint_button',
               onPressed: () => _openScan(context, BiometricType.fingerprint),
             ),
             const SizedBox(height: 16),
@@ -43,6 +44,7 @@ class HomePage extends StatelessWidget {
               key: const Key('faceScanButton'),
               icon: Icons.face,
               label: 'Authenticate with Face Scan',
+              identifier: 'facescan_button',
               onPressed: () => _openScan(context, BiometricType.face),
             ),
           ],
@@ -57,22 +59,29 @@ class _BiometricButton extends StatelessWidget {
     super.key,
     required this.icon,
     required this.label,
+    required this.identifier,
     required this.onPressed,
   });
 
   final IconData icon;
   final String label;
+  final String identifier;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 18),
+    return Semantics(
+      identifier: identifier,
+      label: label,
+      excludeSemantics: true,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 18),
+        ),
+        icon: Icon(icon, size: 28),
+        label: Text(label, style: const TextStyle(fontSize: 16)),
       ),
-      icon: Icon(icon, size: 28),
-      label: Text(label, style: const TextStyle(fontSize: 16)),
     );
   }
 }
