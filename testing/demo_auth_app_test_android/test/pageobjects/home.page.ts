@@ -37,11 +37,18 @@ class HomePage extends Page {
 
   public async clickOpenBrowser() {
     const element = await driver.$(
-      '-android uiautomator:new UiSelector().description("Open Browser")'
+      '-android uiautomator:new UiSelector().description("Open Web Browser")'
     );
     // wait for element to be clickable in android app
     await element.waitForDisplayed({ timeout: 5000 });
     await element.click();
+
+    // If chrome alert
+    const alert = await this.androidChromeAlert;
+    if (await alert.isDisplayed()) {
+      const noThank = await alert.$('-android uiautomator:new UiSelector().resourceId("com.android.chrome:id/negative_button")');
+      await noThank.click();
+    }
 
     // Wait open web browser and switch context from native to web
     await driver.pause(3000);
@@ -88,6 +95,11 @@ class HomePage extends Page {
 
     // Go to fingerprint page again
     await this.clickFingerprint();
+  }
+
+  private get androidChromeAlert() {
+        const regex = 'Chrome notifications make things easier';
+        return $(`android=new UiSelector().textMatches("${regex}")`);
   }
 
 }
