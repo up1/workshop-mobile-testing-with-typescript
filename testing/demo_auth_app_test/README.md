@@ -2,6 +2,12 @@
 * Biometric authentication app test with WebDriverIO and Appium
 * Switch context to webview and perform search in Safari
 
+## Install app in target device
+```
+$flutter run
+$flutter run -d <device_id> 
+```
+
 ## Run test
 ```
 $npm install
