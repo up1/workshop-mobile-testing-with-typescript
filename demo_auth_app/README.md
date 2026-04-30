@@ -45,10 +45,18 @@ $ flutter run
 ```
 
 ## Appium capabilities for Android
+* https://github.com/appium/appium-uiautomator2-driver
+
+Check devices
+```
+$adb devices
+```
+
+Demo capabilities for Android
 ```
 {
   "platformName": "Android",
-  "appium:deviceName": "Pixel 7",
+  "appium:deviceName": "emulator-5554",
   "appium:automationName": "UiAutomator2",
   "appium:appPackage": "com.example.demo_auth_app",
   "appium:connectionRetryTimeout": 60000,
